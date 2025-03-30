@@ -1,1 +1,3 @@
-# php-base-devcontainer
+# Full setup for php development in an devcontainer env
+
+Work in progress

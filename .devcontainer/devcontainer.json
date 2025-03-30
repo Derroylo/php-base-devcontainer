@@ -1,0 +1,95 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/php
+{
+	"name": "PHP-Base",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		// Install git: https://github.com/devcontainers/features/tree/main/src/git
+		"ghcr.io/devcontainers/features/git:1": {},
+		// Enables the usage of Docker in Docker: https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		// Tool to analyze and debug Docker containers: https://github.com/devcontainers-contrib/features/tree/main/src/dive
+		"ghcr.io/devcontainers-contrib/features/dive:1": {},
+		// Install the dotnet SDK: https://github.com/devcontainers/features/tree/main/src/dotnet
+		"ghcr.io/devcontainers/features/dotnet:2": {},
+		// Install nodejs, yarn and pnpm: https://github.com/devcontainers/features/tree/main/src/node
+		"ghcr.io/devcontainers/features/node:1": {},
+		// Install shopware cli: https://github.com/shyim/devcontainers-features/tree/main/src/shopware-cli
+		"ghcr.io/shyim/devcontainers-features/shopware-cli:0": {},
+		// Install symfony cli: https://github.com/shyim/devcontainers-features/tree/main/src/symfony-cli
+		"ghcr.io/shyim/devcontainers-features/symfony-cli:0": {},
+		// Install bun: https://github.com/michidk/devcontainers-features/tree/main/src/bun
+		"ghcr.io/michidk/devcontainers-features/bun:1": {},
+		// Install composer: https://github.com/devcontainers-contrib/features/tree/main/src/composer
+		"ghcr.io/devcontainers-contrib/features/composer:1": {
+			"version": "latest"
+		}
+	},
+	// Override the default install order for features.
+	"overrideFeatureInstallOrder": [
+		"ghcr.io/devcontainers/features/git", // Must be installed first as other tools require this
+		"ghcr.io/devcontainers-contrib/features/composer"
+	],
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+                "eamodio.gitlens",
+                "ikappas.composer",
+                "ms-azuretools.vscode-docker",
+				"ecmel.vscode-html-css",
+                "xdebug.php-debug",
+                "MehediDracula.php-namespace-resolver",
+                "mblode.twig-language-2",
+                "wmaurer.change-case",
+                "cweijan.vscode-mysql-client2",
+                "EditorConfig.EditorConfig",
+                "streetsidesoftware.code-spell-checker",
+                "rangav.vscode-thunder-client",
+                "redhat.vscode-xml",
+                "aswinkumar863.smarty-template-support",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+				"Redis.redis-for-vscode",
+				"MikeHuang.vscode-cypress-extension-pack",
+				"ms-dotnettools.csharp"
+			]
+		}
+	},
+	"forwardPorts": [8080,3306,8025,8081,8082],
+	"portsAttributes": {
+		"8080": {
+			"label": "Apache Webserver",
+			"onAutoForward": "notify"
+		},
+		"3306": {
+			"label": "MySQL Database",
+			"onAutoForward": "notify"
+		},
+		"8025": {
+			"label": "Mailpit Webinterface",
+			"onAutoForward": "notify"
+		},
+		"8081": {
+			"label": "PHPMyAdmin",
+			"onAutoForward": "notify"
+		},
+		"8082": {
+			"label": "PHPCacheAdmin",
+			"onAutoForward": "notify"
+		}
+	},
+	"postStartCommand": "apachectl start",
+	"remoteUser": "webdev",
+	//"workspaceMount": "source=${localWorkspaceFolder}/,target=/var/www/html/,type=bind,consistency=cached",
+	"workspaceFolder": "/var/www/html/",
+	"containerEnv": {
+    	"WEBDEV_WORKSPACE_FOLDER": "/var/www/html/"
+	}
+}
